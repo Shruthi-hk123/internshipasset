@@ -1,0 +1,58 @@
+# AssetFlow - Atomic API Design & Database Mapping
+
+## 1. Asset Management
+- **Feature**: View all assets
+  - **API Endpoint**: `GET /api/assets`
+  - **Database Action**: `SELECT * FROM assets` (Firestore: `getDocs(collection(db, 'assets'))`)
+- **Feature**: Add a new asset
+  - **API Endpoint**: `POST /api/assets`
+  - **Database Action**: `INSERT INTO assets` (Firestore: `addDoc`)
+- **Feature**: Update asset details
+  - **API Endpoint**: `PATCH /api/assets/:id`
+  - **Database Action**: `UPDATE assets SET ... WHERE id = :id`
+- **Feature**: Mark asset as broken/maintenance
+  - **API Endpoint**: `POST /api/assets/:id/maintenance`
+  - **Database Action**: `UPDATE assets SET status = 'Maintenance' AND INSERT INTO maintenance_logs`
+
+## 2. Employee Management
+- **Feature**: View all employees
+  - **API Endpoint**: `GET /api/employees`
+  - **Database Action**: `SELECT * FROM employees`
+- **Feature**: Add a new employee
+  - **API Endpoint**: `POST /api/employees`
+  - **Database Action**: `INSERT INTO employees`
+- **Feature**: Search employees by name/dept
+  - **API Endpoint**: `GET /api/employees/search?q=...`
+  - **Database Action**: `SELECT * FROM employees WHERE name LIKE ...`
+
+## 3. Assignments (The Core Logic)
+- **Feature**: Assign an asset to an employee
+  - **API Endpoint**: `POST /api/assignments`
+  - **Database Action**: 
+    1. `INSERT INTO assignments (asset_id, employee_id, assigned_at)`
+    2. `UPDATE assets SET status = 'Assigned', current_holder_id = :employee_id WHERE id = :asset_id`
+- **Feature**: Return an asset
+  - **API Endpoint**: `POST /api/assignments/:id/return`
+  - **Database Action**:
+    1. `UPDATE assignments SET returned_at = NOW() WHERE id = :id`
+    2. `UPDATE assets SET status = 'Available', current_holder_id = NULL WHERE id = :asset_id`
+- **Feature**: View assignment history for an asset
+  **API Endpoint**: `GET /api/assets/:id/history`
+  **Database Action**: `SELECT * FROM assignments WHERE asset_id = :id ORDER BY assigned_at DESC`
+
+## 4. Advanced Features
+- **Feature**: Calculate Asset Depreciation
+  - **API Endpoint**: `GET /api/assets/:id/depreciation`
+  - **Database Action**: Compute based on `purchase_date`, `cost`, and `category` lifespan.
+- **Feature**: Generate QR Code
+  - **API Endpoint**: `GET /api/assets/:id/qr`
+  - **Database Action**: Generate dynamic URL for asset identification.
+- **Feature**: Bulk Import Employees
+  - **API Endpoint**: `POST /api/employees/bulk`
+  - **Database Action**: `BATCH INSERT` into employees table.
+- **Feature**: Departmental Budget Report
+  - **API Endpoint**: `GET /api/reports/departmental-costs`
+  - **Database Action**: `SELECT department, SUM(cost) FROM assets JOIN employees GROUP BY department`
+- **Feature**: Predictive Maintenance Analysis
+  - **API Endpoint**: `GET /api/analytics/maintenance-prediction`
+  - **Database Action**: Analyze `maintenance_logs` frequency and `asset` age.

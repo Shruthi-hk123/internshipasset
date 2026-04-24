@@ -1,0 +1,37 @@
+# AssetFlow - Requirements Analysis & Project Scope
+
+## Understanding of Requirements
+The client requires a robust, industrial-grade software solution for managing company assets. The primary goal is to track the lifecycle of physical assets (laptops, mobile devices, furniture, etc.) and their assignment to employees. With a workforce of 1000 employees and a dedicated HR department, the system must be scalable, secure, and provide clear visibility into who has what item at any given time.
+
+## Creative Freedoms Taken
+- **Product Name**: AssetFlow - chosen to represent the fluid movement of assets through the company.
+- **Scope Expansion**: Included maintenance logging and historical tracking to provide a complete "paper trail" for every asset.
+- **User Personas**: Designed specifically for HR and IT Admins as primary users, with a focus on high-density data management.
+- **Visual Identity**: A professional, technical aesthetic using a mission-control style dashboard for quick status checks.
+
+## Assumptions Made
+- **Employee Data**: The system assumes employees are unique entities with stable identifiers (Employee IDs).
+- **Asset Uniqueness**: Every trackable item has a unique serial number or asset tag.
+- **HR Centralization**: HR is responsible for both employee management and the high-level oversight of asset distribution.
+- **Connectivity**: The application will be used in an environment with stable internet access for real-time updates.
+
+## Feature List
+1. **Dashboard Overview**: Real-time stats on total assets, assigned vs. available items, and pending maintenance.
+2. **Asset Registry**: Comprehensive list of all company property with filtering by category, status, and department.
+3. **Employee Directory**: Management of the 1000+ workforce, linking them to their assigned hardware.
+4. **Assignment Workflow**: Streamlined process to "Check-out" and "Check-in" assets with condition reporting.
+5. **Maintenance Logs**: Tracking repairs, costs, and downtime for critical equipment.
+6. **Audit Trail**: Full history of every asset, showing every employee it has ever been assigned to.
+7. **Asset Lifecycle Timeline**: A visual, interactive timeline for every asset from procurement to retirement.
+8. **QR Code Integration**: Automated QR code generation for every asset tag to facilitate mobile scanning.
+9. **Depreciation Engine**: Financial tracking using straight-line or declining balance methods for tax and accounting.
+10. **Predictive Maintenance Alerts**: AI-driven notifications for assets nearing their service life or showing high failure patterns.
+11. **Bulk Operations**: High-speed CSV import/export for managing the 1000+ employee database and large asset procurement batches.
+12. **Departmental Chargebacks**: Reporting on asset costs per department for internal budgeting.
+
+## Questions for Next Client Meeting
+1. Do you have an existing employee database (e.g., Workday, BambooHR) that we should integrate with?
+2. What are the specific categories of assets you track most frequently?
+3. Should employees have a "Self-Service" view to see what assets are currently assigned to them?
+4. Are there specific compliance or tax requirements for asset depreciation that we should calculate?
+5. Do you require barcode/QR code scanning capabilities for mobile devices?
