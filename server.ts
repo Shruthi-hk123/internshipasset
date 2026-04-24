@@ -193,7 +193,7 @@ function createToken(): string {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = parseInt(process.env.PORT || '3000', 10);
   await ensureDataStore();
 
   app.use(express.json());
